@@ -15,12 +15,12 @@ default: clean dev_deps deps test lint build
 .venv:
 	if [ ! -e ".venv/bin/activate_this.py" ] ; then virtualenv --clear .venv ; fi
 
-clean: clean-build clean-pyc clean-test
+clean: clean-build  clean-test
 
 clean-build:
 	rm -fr dist/
 
-clean-pyc:
+clean-pyc: mkdir ./dist
 	find . -name '*.pyc' -exec rm -f {} +
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
@@ -46,5 +46,6 @@ test:
 build: clean
 	mkdir ./dist
 	cp ./src/main.py ./dist
-	cd ./src && zip -x main.py -x \*libs\* -r ../dist/jobs.zip .
-	cd ./src/libs && zip -r ../../dist/libs.zip .
+	#cd ./src && zip -x main.py -x \*libs\* -r ../dist/jobs1.zip .
+	#cd ./src/libs && zip -r ../../dist/libs.zip .
+	cd ./src && zip -x main.py -r ../dist/jobs.zip .

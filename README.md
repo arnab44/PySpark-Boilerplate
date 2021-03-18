@@ -39,9 +39,13 @@ where there should be 2 columns (namely text and pii) and each row should contai
  6. Once the  cluster finishes processing, it should provide output in S3.
  
  
- #### How to add a job
+  #### How to add a job
  
- 1. create a folder  src/<job_name>
- 
- 2. Inside that create a method 'analyze' which accepts sparkcontext as an argument. This method will be triggered
-    when the spark job would be triggered with <job_name> as a parameter.
+ 1. create a folder  src/jobs/<job_name>
+ 2. Inside the folder created in step 1, create a file called __init__.py. This file would be the entrypoint 
+    for the spark code.
+ 3. Inside that __init__.py file create a method 'analyze' which accepts sparkcontext as an argument. This method will be triggered
+    when the spark job would be triggered with <job_name> as a parameter.  
+ 4. Write a 'predict' function in the __init__.py file which should run the prediction model for a single input item. 
+ 5. From the method 'analyze' method read the input text from S3, and create rdd. Using this rdd, call the 'predict'
+    the function.
